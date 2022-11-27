@@ -1,25 +1,59 @@
-import logo from './logo.svg';
-import './App.css';
+/* eslint-disable react/react-in-jsx-scope */
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { Route, Routes } from 'react-router-dom'
+import Nav from './components/Nav/Nav'
+import Leaderboards from './pages/Leaderboards/Leaderboards'
+import Login from './pages/Login/Login'
+import Register from './pages/Register/Register'
+import ThreadDetail from './pages/Detail/ThreadDetail'
+import Threads from './pages/Threads/Threads'
+import { asyncPreloadProcess } from './store/isPreload/action'
+import { asyncUnsetAuthUser } from './store/authUser/action'
+import CreateThreadInput from './pages/CreateThread/CreateThreadInput'
 
-function App() {
+function App () {
+  const { authUser = null, isPreload = false } = useSelector((states) => states)
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    // @TODO: dispatch async action to preload app
+    dispatch(asyncPreloadProcess())
+  }, [dispatch])
+
+  const onLogOut = () => {
+    dispatch(asyncUnsetAuthUser())
+  }
+
+  if (isPreload) {
+    return null
+  }
+
+  if (authUser === null) {
+    return (
+      <Routes>
+        <Route path='/*' element={<Login />}/>
+        <Route path='/register' element={<Register />}/>
+      </Routes>
+    )
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <>
+    <div>
+      <header>
+          <Nav authUser={authUser} logout={onLogOut}/>
       </header>
-    </div>
-  );
+        <Routes>
+            <Route index element={<Threads />} />
+            <Route path='/threads' element={<CreateThreadInput />}/>
+            <Route path='/thread/:id' element={<ThreadDetail />}/>
+            <Route path='leaderboards' element={<Leaderboards />} />
+        </Routes>
+      </div>
+    </>
+  )
 }
 
-export default App;
+export default App
