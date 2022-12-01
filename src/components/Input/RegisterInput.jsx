@@ -8,15 +8,20 @@ function RegisterInput ({ register }) {
   const [email, onEmailChange] = useInput('')
   const [password, onPasswordChange] = useInput('')
   return (
-        <Form>
-            <Input required value={name} label="Name" type="name" onChange={onNameChange} name="name" placeholder='Name' />
-            <Input required value={email} label="Email" type="email" onChange={onEmailChange} name="email" placeholder='Email' />
-            <Input required value={password} label="Password" type="password" onChange={onPasswordChange} name="password" placeholder='Password' />
+    <Form>
+      <Input required value={name} label="Name" type="name" onChange={onNameChange} name="name" placeholder='Name' />
+      <Input required value={email} label="Email" type="email" onChange={onEmailChange} name="email" placeholder='Email' />
+      <Input required value={password} label="Password" type="password" onChange={onPasswordChange} name="password" placeholder='Password' />
 
-            <div className="button-container">
-                <button type="submit" onClick={() => register({ name, email, password })}>Register</button>
-            </div>
-        </Form>
+      <div className="button-container">
+        <button type="submit" onClick={(e) => {
+          e.preventDefault()
+          register({ name, email, password })
+        }}>
+          Register
+        </button>
+      </div>
+    </Form>
 
   )
 }

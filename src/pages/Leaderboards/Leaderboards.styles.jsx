@@ -4,6 +4,6 @@ export const LeaderboardsContainer = styled.div`
 box-shadow: 5px 10px #888888;
 justify-content: space-between;
 display: flex;
-margin: 10px;
+margin: 50px;
 padding: 10px;
 `

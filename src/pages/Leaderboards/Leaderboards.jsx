@@ -16,10 +16,8 @@ function Leaderboards () {
     return null
   }
 
-  console.log(leaderboards)
-
   return (
-        <div>
+        <>
           {leaderboards.map(leaderboard => (
             <LeaderboardsContainer key={leaderboard.user.id}>
               <img src={leaderboard.user.avatar} />
@@ -27,7 +25,7 @@ function Leaderboards () {
               <p>{leaderboard.score}</p>
             </LeaderboardsContainer>
           ))}
-        </div>
+        </>
   )
 }
 

@@ -3,15 +3,17 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import Comments from '../../components/comments/Comments'
 import { ItemBody, ItemContainer, ItemCreatedAt, ItemName, ItemProfile, ItemProfileSub, ItemTitleDetail } from '../../components/ThreadsList/ThreadItem/ThreadItem.styled'
-import { asyncReceiveThreadDetail } from '../../store/threadDetail/action'
+import { asyncReceiveThreadDetail, asyncToggleUpVoteThreadDetail } from '../../store/threadDetail/action'
 import { postedAt } from '../../utils'
 /* eslint-disable react/react-in-jsx-scope */
-import { BiLike } from 'react-icons/bi'
+import { BiDislike, BiLike } from 'react-icons/bi'
 import CommentThread from '../../components/comments/CommentThread/CommentThread'
+
 function ThreadDetail () {
   const { id } = useParams()
-  const { threadDetail = null } = useSelector(states => states)
+  const { threadDetail = null, authUser } = useSelector((states) => states)
   const dispatch = useDispatch()
+  const isThreadVoteUp = threadDetail?.upVotesBy.includes(authUser?.id)
 
   useEffect(() => {
     dispatch(asyncReceiveThreadDetail(id))
@@ -19,6 +21,10 @@ function ThreadDetail () {
 
   if (!threadDetail) {
     return null
+  }
+
+  const onLikeThread = () => {
+    dispatch(asyncToggleUpVoteThreadDetail(id))
   }
 
   return (
@@ -30,19 +36,22 @@ function ThreadDetail () {
           <img src={threadDetail.owner.avatar} />
           <ItemProfileSub>
             <ItemName>{threadDetail.owner.name}</ItemName>
-            {/* <button onClick={() => onLikeThread(id)}>
-          {isThreadLike ? <BiLike style={{ color: 'red' }} /> : <BiDislike />}
-          </button> */}
-            <ItemName><BiLike /> {threadDetail.upVotesBy.length}</ItemName>
+            <span>#{threadDetail.category}</span>
+            <div>
+              <button onClick={() => onLikeThread(id)}>
+                {isThreadVoteUp ? <BiDislike style={{ color: 'red' }} /> : <BiLike />}
+              </button>
+              {threadDetail.upVotesBy.length}
+            </div>
           </ItemProfileSub>
         </ItemProfile>
         <ItemCreatedAt>{postedAt(threadDetail.createdAt)}</ItemCreatedAt>
-        <CommentThread />
+        <CommentThread id={threadDetail.id}/>
       </ItemContainer>
 
       <ItemContainer>
 
-        <Comments {...threadDetail} />
+        <Comments {...threadDetail} key={threadDetail.id} />
       </ItemContainer>
     </>
   )

@@ -35,12 +35,19 @@ export const NavLinks = styled.div`
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    
 `
 export const NavLink = styled(Link)`
     color: black;
     padding: 10px 15px;
     cursor: pointer;
     text-decoration: none;
+
+    :hover {
+      background-color: black;
+      color: white;
+      cursor: pointer
+    }
 `
 export const Button = styled.button`
   border: 1px solid black;

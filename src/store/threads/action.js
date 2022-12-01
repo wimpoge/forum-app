@@ -24,16 +24,6 @@ function addThreadActionCreator (thread) {
   }
 }
 
-function toggleUpVoteActionCreator ({ threadId, userId }) {
-  return {
-    type: ActionType.TOGGLE_UP_VOTE_THREAD,
-    payload: {
-      threadId,
-      userId
-    }
-  }
-}
-
 function asyncAddThread ({ title, body, category }) {
   return async (dispatch) => {
     try {
@@ -45,24 +35,9 @@ function asyncAddThread ({ title, body, category }) {
   }
 }
 
-function asyncToggleUpVoteThread (threadId) {
-  return async (dispatch, getState) => {
-    const { authUser } = getState()
-    dispatch(toggleUpVoteActionCreator({ threadId, userId: authUser.id }))
-
-    try {
-      await api.toggleUpVote(threadId)
-    } catch (error) {
-      dispatch(toggleUpVoteActionCreator({ threadId, userId: authUser.id }))
-    }
-  }
-}
-
 export {
   ActionType,
   receiveThreadsActionCreator,
   addThreadActionCreator,
-  toggleUpVoteActionCreator,
-  asyncAddThread,
-  asyncToggleUpVoteThread
+  asyncAddThread
 }

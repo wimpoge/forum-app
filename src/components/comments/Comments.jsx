@@ -7,19 +7,18 @@ function Comments (threadDetail) {
   return (
     <>
       {threadDetail.comments.map((comment) => (
-        <ItemContainerComment key={comment.owner.id}>
-            <ItemProfileSub>
+        <ItemContainerComment key={comment.id}>
+          <ItemProfileSub>
             <img src={comment.owner.avatar} />
-              <p>{comment.owner.name}</p>
-            </ItemProfileSub>
-            <ItemBodyComment>
-              {comment.content}<br /><br />
-              {postedAt(comment.createdAt)}
-            </ItemBodyComment>
-
-            </ItemContainerComment>
+            <p>{comment.owner.name}</p>
+          </ItemProfileSub>
+          <ItemBodyComment>
+            {comment.content}<br /><br />
+            {postedAt(comment.createdAt)}
+          </ItemBodyComment>
+        </ItemContainerComment>
       ))}
-          </>
+    </>
   )
 }
 

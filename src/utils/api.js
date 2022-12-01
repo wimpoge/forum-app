@@ -180,15 +180,12 @@ const api = (() => {
     return comment
   }
 
-  async function toggleUpVote (id) {
-    const response = await _fetchWithAuth(`${BASE_URL}/threads/${id}/up-vote`, {
+  async function toggleUpVote ({ threadId, commentId }) {
+    const response = await _fetchWithAuth(`${BASE_URL}/threads/${threadId}/comments/${commentId}/up-vote`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        talkId: id
-      })
+      }
     })
 
     const responseJson = await response.json()
@@ -198,6 +195,9 @@ const api = (() => {
     if (status !== 'success') {
       throw new Error(message)
     }
+    const { data: { vote } } = responseJson
+    console.log(vote)
+    return vote
   }
 
   async function getLeaderboard () {

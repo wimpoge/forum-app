@@ -4,7 +4,9 @@ const ActionType = {
   RECEIVE_THREAD_DETAIL: 'RECEIVE_THREAD_DETAIL',
   CLEAR_THREAD_DETAIL: 'CLEAR_THREAD_DETAIL',
   TOGGLE_UP_VOTE_THREAD_DETAIL: 'TOGGLE_DOWN_VOTE_THREAD_DETAIL',
-  TOGGLE_DOWN_VOTE_THREAD_DETAIL: 'TOGGLE_DOWN_VOTE_THREAD_DETAIL'
+  TOGGLE_DOWN_VOTE_THREAD_DETAIL: 'TOGGLE_DOWN_VOTE_THREAD_DETAIL',
+  RECEIVE_THREAD_COMMENT: 'RECEIVE_THREAD_COMMENT',
+  VOTE_UP_THREAD_COMMENT: 'VOTE_UP_THREAD_COMMENT'
 }
 
 function receiveThreadDetailActionCreator (threadDetail) {
@@ -43,13 +45,33 @@ function asyncReceiveThreadDetail (threadId) {
   }
 }
 
-function asyncToggleUpVoteThreadDetail () {
+function asyncToggleUpVoteThreadDetail ({ threadId, commentId }) {
   return async (dispatch, getState) => {
-    const { authUser, threadDetail } = getState()
+    const { authUser } = getState()
     dispatch(toggleUpVoteThreadDetailActionCreator(authUser.id))
 
     try {
-      await api.toggleUpVote(threadDetail.id)
+      await api.toggleUpVote({ threadId, commentId })
+    } catch (error) {
+      alert(error.message)
+    }
+  }
+}
+
+function addThreadCommentActionCreator (threadComment) {
+  return {
+    type: ActionType.RECEIVE_THREAD_COMMENT,
+    payload: {
+      threadComment
+    }
+  }
+}
+
+function asyncAddThreadComment ({ content, id }) {
+  return async (dispatch) => {
+    try {
+      const threadComment = await api.createComment({ content, id })
+      dispatch(addThreadCommentActionCreator(threadComment))
     } catch (error) {
       alert(error.message)
     }
@@ -62,5 +84,7 @@ export {
   clearThreadDetailActionCreator,
   toggleUpVoteThreadDetailActionCreator,
   asyncReceiveThreadDetail,
+  addThreadCommentActionCreator,
+  asyncAddThreadComment,
   asyncToggleUpVoteThreadDetail
 }
