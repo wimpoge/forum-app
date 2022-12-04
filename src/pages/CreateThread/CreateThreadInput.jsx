@@ -42,7 +42,7 @@ function CreateThreadInput () {
         <strong>{body.length}</strong>
         /320
       </p>
-      <button type="submit" onClick={() => onAddThread({ title, category, body })}>Create Thread</button>
+      <button type="submit" onClick={() => onAddThread({ title, body, category })}>Create Thread</button>
     </ItemContainer>
         </>
   )

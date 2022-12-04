@@ -2,7 +2,7 @@
 import { useNavigate } from 'react-router-dom'
 import { postedAt } from '../../../utils'
 import { ItemBody, ItemButton, ItemComment, ItemContainer, ItemCreatedAt, ItemOwner, ItemTitle } from './ThreadItem.styled'
-
+import parse from 'html-react-parser'
 /* eslint-disable react/react-in-jsx-scope */
 
 function ThreadItem ({ id, title, body, category, createdAt, totalComments, user }) {
@@ -14,7 +14,7 @@ function ThreadItem ({ id, title, body, category, createdAt, totalComments, user
   return (
          <ItemContainer>
               <ItemTitle onClick={onDetailClick}>{title}</ItemTitle>
-              <ItemBody>{body}</ItemBody>
+              <ItemBody>{parse(body)}</ItemBody>
               <ItemCreatedAt>{postedAt(createdAt)}</ItemCreatedAt>
               <ItemComment>Jumlah Komentar: {totalComments}</ItemComment>
               <ItemButton>#{category}</ItemButton>

@@ -180,7 +180,57 @@ const api = (() => {
     return comment
   }
 
-  async function toggleUpVote ({ threadId, commentId }) {
+  async function toggleUpVoteThread ({ threadId }) {
+    const response = await _fetchWithAuth(`${BASE_URL}/threads/${threadId}/up-vote`, {
+      method: 'POST'
+    })
+    const responseJson = await response.json()
+    const { status, message } = responseJson
+
+    if (status !== 'success') {
+      throw new Error(message)
+    }
+
+    const { data: { vote } } = responseJson
+
+    return vote
+  }
+
+  async function toggleDownVoteThread ({ threadId }) {
+    const response = await _fetchWithAuth(`${BASE_URL}/threads/${threadId}/down-vote`, {
+      method: 'POST'
+    })
+
+    const responseJson = await response.json()
+    const { status, message } = responseJson
+
+    if (status !== 'success') {
+      throw new Error(message)
+    }
+
+    const { data: { vote } } = responseJson
+
+    return vote
+  }
+
+  async function toggleNeutralizeVoteThread ({ threadId }) {
+    const response = await _fetchWithAuth(`${BASE_URL}/threads/${threadId}/neutral-vote`, {
+      method: 'POST'
+    })
+
+    const responseJson = await response.json()
+    const { status, message } = responseJson
+
+    if (status !== 'success') {
+      throw new Error(message)
+    }
+
+    const { data: { vote } } = responseJson
+
+    return vote
+  }
+
+  async function toggleUpVoteComment ({ threadId, commentId }) {
     const response = await _fetchWithAuth(`${BASE_URL}/threads/${threadId}/comments/${commentId}/up-vote`, {
       method: 'POST',
       headers: {
@@ -196,7 +246,6 @@ const api = (() => {
       throw new Error(message)
     }
     const { data: { vote } } = responseJson
-    console.log(vote)
     return vote
   }
 
@@ -226,7 +275,10 @@ const api = (() => {
     getAllThreads,
     createThread,
     createComment,
-    toggleUpVote,
+    toggleUpVoteThread,
+    toggleDownVoteThread,
+    toggleNeutralizeVoteThread,
+    toggleUpVoteComment,
     getThreadsDetail,
     getLeaderboard
   }

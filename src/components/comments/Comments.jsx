@@ -1,7 +1,7 @@
 import { postedAt } from '../../utils'
 import { ItemProfileSub } from '../ThreadsList/ThreadItem/ThreadItem.styled'
-import { ItemBodyComment, ItemContainerComment } from './Comment.styles'
-
+import { ItemBodyComment, ItemContainerComment } from './Comments.styles'
+import parse from 'html-react-parser'
 /* eslint-disable react/react-in-jsx-scope */
 function Comments (threadDetail) {
   return (
@@ -13,7 +13,7 @@ function Comments (threadDetail) {
             <p>{comment.owner.name}</p>
           </ItemProfileSub>
           <ItemBodyComment>
-            {comment.content}<br /><br />
+            {parse(comment.content)}<br /><br />
             {postedAt(comment.createdAt)}
           </ItemBodyComment>
         </ItemContainerComment>

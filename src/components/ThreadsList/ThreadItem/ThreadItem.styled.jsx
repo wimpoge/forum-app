@@ -62,7 +62,6 @@ border: 1px solid;
   :hover {
     background-color: #3f543e;
     color: white;
-    cursor: pointer;
     box-shadow: 5px 10px #ace0ab;
 
   }

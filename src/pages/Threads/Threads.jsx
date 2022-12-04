@@ -15,12 +15,11 @@ function Threads () {
   const { isPending } = useLogin()
 
   useEffect(() => {
-    // @TODO: dispatch async action to populate talks and users data
     dispatch(asyncPopulateUsersAndThreads())
   }, [dispatch])
 
-  const filteredThreadList = threads.filter(
-    (thread) => thread.category === category || category === ''
+  const filteredThreadList = threads.filter((thread) =>
+    thread.category === category || category === ''
   )
 
   const threadList = filteredThreadList.map((thread) => ({
@@ -51,7 +50,7 @@ function Threads () {
         ? <Loading />
         : (
           <>
-          <Categories categoriesList={categoriesList} changeCategoryHandler={changeCategoryHandler}/>
+          <Categories categoriesList={categoriesList} changeCategoryHandler={changeCategoryHandler} />
           <ThreadsList threads={threadList} /></>
           )
       }
