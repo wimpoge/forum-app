@@ -12,7 +12,8 @@ function CreateThreadInput () {
   const [body, setBody] = useState('')
   const [category, setCategory] = useState('')
 
-  const onAddThread = ({ title, body, category }) => {
+  const onAddThread = (e) => {
+    e.preventDefault()
     dispatch(asyncAddThread({ title, body, category }))
     navigate('/')
   }
@@ -42,7 +43,7 @@ function CreateThreadInput () {
         <strong>{body.length}</strong>
         /320
       </p>
-      <button type="submit" onClick={() => onAddThread({ title, category, body })}>Create Thread</button>
+      <button type="submit" onClick={onAddThread}>Create Thread</button>
     </ItemContainer>
         </>
   )

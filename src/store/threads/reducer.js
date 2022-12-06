@@ -11,9 +11,9 @@ function threadsReducer (threads = [], action = {}) {
         if (thread.id === action.payload.threadId) {
           return {
             ...thread,
-            up: thread.up.includes(action.payload.userId)
-              ? thread.up.filter((id) => id !== action.payload.userId)
-              : thread.up.concat([action.payload.userId])
+            upVotesBy: thread.upVotesBy.includes(action.payload.userId)
+              ? thread.upVotesBy.filter((id) => id !== action.payload.userId)
+              : thread.upVotesBy.concat([action.payload.userId])
           }
         }
         return thread

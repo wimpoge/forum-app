@@ -3,16 +3,18 @@ import { useDispatch } from 'react-redux'
 import { ItemContainer } from '../../ThreadsList/ThreadItem/ThreadItem.styled'
 import { CommentReply } from './CommentThread.styles'
 import PropTypes from 'prop-types'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { asyncAddThreadComment } from '../../../store/threadDetail/action'
 /* eslint-disable react/react-in-jsx-scope */
 function CommentThread () {
   const { id } = useParams()
   const [content, setContent] = useState('')
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const onReplyThread = ({ id, content }) => {
     dispatch(asyncAddThreadComment({ id, content }))
+    navigate('/')
   }
 
   const handleBodyChange = ({ target }) => {

@@ -7,7 +7,7 @@ function ThreadsList ({ threads }) {
   return (
         <div>
            {threads.map((thread) => (
-            <ThreadItem key={thread.id} {...thread}/>
+            <ThreadItem key={thread.id} {...thread} />
            ))}
         </div>
   )

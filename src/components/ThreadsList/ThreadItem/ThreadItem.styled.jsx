@@ -18,7 +18,7 @@ export const ItemTitleDetail = styled.h1`
 padding: 5px;
 
 `
-export const ItemBody = styled.p`
+export const ItemBody = styled.div`
 text-align: center
 
 `
@@ -62,7 +62,6 @@ border: 1px solid;
   :hover {
     background-color: #3f543e;
     color: white;
-    cursor: pointer;
     box-shadow: 5px 10px #ace0ab;
 
   }

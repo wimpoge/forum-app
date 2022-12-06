@@ -3,7 +3,10 @@ const ActionType = {
 }
 
 function setCategoryActionCreator (category) {
-  return { type: ActionType.SET_CATEGORY, payload: { category } }
+  return {
+    type: ActionType.SET_CATEGORY,
+    payload: { category }
+  }
 }
 
 export { ActionType, setCategoryActionCreator }
