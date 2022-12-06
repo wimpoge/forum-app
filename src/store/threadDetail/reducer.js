@@ -1,6 +1,6 @@
 import { ActionType } from './action'
 
-function threadDetailReducer (threadDetail = [], action = {}) {
+function threadDetailReducer (threadDetail = null, action = {}) {
   switch (action.type) {
     case ActionType.RECEIVE_THREAD_DETAIL:
       return action.payload.threadDetail
@@ -12,48 +12,35 @@ function threadDetailReducer (threadDetail = [], action = {}) {
         comment: [action.payload.threadDetail]
       }
     case ActionType.TOGGLE_UP_VOTE_THREAD_DETAIL:
-      return threadDetail.map((thread) => {
-        if (thread.id === action.payload.threadId) {
-          return {
-            ...thread,
-            upVotesBy: thread.upVotesBy.includes(action.payload.userId)
-              ? thread.upVotesBy
-              : [...thread.upVotesBy, action.payload.userId],
-            downVotesBy: thread.downVotesBy.includes(action.payload.userId)
-              ? thread.downVotesBy.filter((id) => id !== action.payload.userId)
-              : thread.downVotesBy
-          }
-        }
-
-        return thread
-      })
+      return {
+        ...threadDetail,
+        upVotesBy: threadDetail.upVotesBy.includes(action.payload.userId)
+          ? threadDetail.upVotesBy.filter((id) => id !== action.payload.userId)
+          : threadDetail.upVotesBy.concat([action.payload.userId]),
+        downVotesBy: threadDetail.downVotesBy.includes(action.payload.userId)
+          ? threadDetail.downVotesBy.filter((id) => id !== action.payload.userId)
+          : threadDetail.downVotesBy
+      }
     case ActionType.TOGGLE_DOWN_VOTE_THREAD_DETAIL:
-      return threadDetail.map((thread) => {
-        if (thread.id === action.payload.threadId) {
-          return {
-            ...thread,
-            upVotesBy: thread.upVotesBy.includes(action.payload.userId)
-              ? thread.upVotesBy.filter((id) => id !== action.payload.userId)
-              : thread.upVotesBy,
-            downVotesBy: thread.downVotesBy.includes(action.payload.userId)
-              ? thread.downVotesBy
-              : [...thread.downVotesBy, action.payload.userId]
-          }
-        }
-
-        return thread
-      })
+      return {
+        ...threadDetail,
+        downVotesBy: threadDetail.downVotesBy.includes(action.payload.userId)
+          ? threadDetail.downVotesBy.filter((id) => id !== action.payload.userId)
+          : threadDetail.downVotesBy.concat([action.payload.userId]),
+        upVotesBy: threadDetail.upVotesBy.includes(action.payload.userId)
+          ? threadDetail.upVotesBy.filter((id) => id !== action.payload.userId)
+          : threadDetail.upVotesBy
+      }
     case ActionType.TOGGLE_NEUTRALIZE_VOTE_THREAD_DETAIL:
-      return threadDetail.map((thread) => {
-        if (thread.id === action.payload.threadId) {
-          return {
-            ...thread,
-            upVotesBy: thread.upVotesBy.filter((id) => id !== action.payload.userId),
-            downVotesBy: thread.downVotesBy.filter((id) => id !== action.payload.userId)
-          }
-        }
-        return thread
-      })
+      return {
+        ...threadDetail,
+        downVotesBy: threadDetail.downVotesBy.includes(action.payload.userId)
+          ? threadDetail.downVotesBy.filter((id) => id !== action.payload.userId)
+          : threadDetail.downVotesBy,
+        upVotesBy: threadDetail.upVotesBy.includes(action.payload.userId)
+          ? threadDetail.upVotesBy.filter((id) => id !== action.payload.userId)
+          : threadDetail.upVotesBy
+      }
 
     default:
       return threadDetail

@@ -6,11 +6,11 @@ import Nav from './components/Nav/Nav'
 import Leaderboards from './pages/Leaderboards/Leaderboards'
 import Login from './pages/Login/Login'
 import Register from './pages/Register/Register'
-import ThreadDetail from './pages/Detail/ThreadDetail'
 import Threads from './pages/Threads/Threads'
 import { asyncPreloadProcess } from './store/isPreload/action'
 import { asyncUnsetAuthUser } from './store/authUser/action'
 import CreateThreadInput from './pages/CreateThread/CreateThreadInput'
+import DetailPage from './pages/Detail/DetailPage'
 
 function App () {
   const { authUser = null, isPreload = false } = useSelector((states) => states)
@@ -48,7 +48,7 @@ function App () {
         <Routes>
             <Route index element={<Threads />} />
             <Route path='/threads' element={<CreateThreadInput />}/>
-            <Route path='/thread/:id' element={<ThreadDetail />}/>
+            <Route path='/thread/:id' element={<DetailPage />}/>
             <Route path='leaderboards' element={<Leaderboards />} />
         </Routes>
       </div>

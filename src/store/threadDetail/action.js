@@ -34,32 +34,29 @@ function addThreadCommentActionCreator (threadComment) {
   }
 }
 
-function toggleUpVoteThreadDetailActionCreator (userId, threadId) {
+function toggleUpVoteThreadDetailActionCreator (userId) {
   return {
     type: ActionType.TOGGLE_UP_VOTE_THREAD_DETAIL,
     payload: {
-      userId,
-      threadId
+      userId
     }
   }
 }
 
-function toggleDownVoteThreadDetailActionCreator (userId, threadId) {
+function toggleDownVoteThreadDetailActionCreator (userId) {
   return {
     type: ActionType.TOGGLE_DOWN_VOTE_THREAD_DETAIL,
     payload: {
-      userId,
-      threadId
+      userId
     }
   }
 }
 
-function toggleNeutralizeVoteThreadDetailActionCreator (userId, threadId) {
+function toggleNeutralizeVoteThreadDetailActionCreator (userId) {
   return {
     type: ActionType.TOGGLE_NEUTRALIZE_VOTE_THREAD_DETAIL,
     payload: {
-      userId,
-      threadId
+      userId
     }
   }
 }
@@ -76,63 +73,42 @@ function asyncReceiveThreadDetail (threadId) {
   }
 }
 
-function asyncToggleUpVoteThreadDetail ({ threadId, isThreadVoteDown }) {
+function asyncToggleUpVoteThreadDetail () {
   return async (dispatch, getState) => {
-    const { authUser } = getState()
-    dispatch(toggleUpVoteThreadDetailActionCreator({ userId: authUser.id, threadId }))
+    const { authUser, threadDetail } = getState()
+    dispatch(toggleUpVoteThreadDetailActionCreator(authUser.id))
 
     try {
-      await api.toggleUpVoteThread({ threadId })
+      await api.toggleUpVoteThread(threadDetail.id)
     } catch (error) {
-      if (isThreadVoteDown) {
-        dispatch(toggleDownVoteThreadDetailActionCreator({ userId: authUser.id, threadId }))
-      } else {
-        dispatch(toggleNeutralizeVoteThreadDetailActionCreator({ userId: authUser.id, threadId }))
-      }
+      alert(error.message)
     }
   }
 }
 
-function asyncToggleDownVoteThreadDetail ({ isThreadVoteUp, threadId }) {
+function asyncToggleDownVoteThreadDetail () {
   return async (dispatch, getState) => {
-    const { authUser } = getState()
-    dispatch(toggleDownVoteThreadDetailActionCreator({ userId: authUser.id, threadId }))
+    const { authUser, threadDetail } = getState()
+    dispatch(toggleDownVoteThreadDetailActionCreator(authUser.id))
 
     try {
-      await api.toggleDownVoteThread({ threadId })
+      await api.toggleDownVoteThread(threadDetail.id)
     } catch (error) {
-      if (isThreadVoteUp) {
-        dispatch(toggleUpVoteThreadDetailActionCreator({ userId: authUser.id, threadId }))
-      } else {
-        dispatch(toggleNeutralizeVoteThreadDetailActionCreator({ userId: authUser.id, threadId }))
-      }
+      alert(error.message)
     }
   }
 }
 
-function asyncNeutralizeVoteThreadDetail ({ threadId, isThreadVoteUp = false }) {
+function asyncNeutralizeVoteThreadDetail () {
   return async (dispatch, getState) => {
     const { authUser, threadDetail } = getState()
 
-    dispatch(toggleNeutralizeVoteThreadDetailActionCreator({ threadId, userId: authUser.id }))
-
-    if (threadDetail !== null) {
-      dispatch(toggleNeutralizeVoteThreadDetailActionCreator(authUser.id))
-    }
+    dispatch(toggleNeutralizeVoteThreadDetailActionCreator(authUser.id))
 
     try {
-      await api.toggleNeutralizeVoteThread({ threadId })
+      await api.toggleNeutralizeVoteThread(threadDetail.id)
     } catch (error) {
-      if (isThreadVoteUp) {
-        dispatch(toggleUpVoteThreadDetailActionCreator({ threadId, userId: authUser.id }))
-      } else {
-        dispatch(toggleDownVoteThreadDetailActionCreator({ threadId, userId: authUser.id }))
-      }
-    }
-    if (threadDetail !== null && isThreadVoteUp) {
-      dispatch(toggleUpVoteThreadDetailActionCreator(authUser.id))
-    } else if (threadDetail !== null) {
-      dispatch(toggleDownVoteThreadDetailActionCreator(authUser.id))
+      alert(error.message)
     }
   }
 }

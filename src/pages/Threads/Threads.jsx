@@ -18,8 +18,8 @@ function Threads () {
     dispatch(asyncPopulateUsersAndThreads())
   }, [dispatch])
 
-  const filteredThreadList = threads.filter((thread) =>
-    thread.category === category || category === ''
+  const filteredThreadList = threads.filter(
+    (thread) => thread.category === category || category === ''
   )
 
   const threadList = filteredThreadList.map((thread) => ({

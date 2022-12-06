@@ -18,7 +18,7 @@ export const ItemTitleDetail = styled.h1`
 padding: 5px;
 
 `
-export const ItemBody = styled.p`
+export const ItemBody = styled.div`
 text-align: center
 
 `
