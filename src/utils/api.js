@@ -180,8 +180,8 @@ const api = (() => {
     return comment
   }
 
-  async function toggleUpVoteThread ({ threadId }) {
-    const response = await _fetchWithAuth(`${BASE_URL}/threads/${threadId}/up-vote`, {
+  async function toggleUpVoteThread ({ id }) {
+    const response = await _fetchWithAuth(`${BASE_URL}/threads/${id}/up-vote`, {
       method: 'POST'
     })
     const responseJson = await response.json()
@@ -196,8 +196,8 @@ const api = (() => {
     return vote
   }
 
-  async function toggleDownVoteThread ({ threadId }) {
-    const response = await _fetchWithAuth(`${BASE_URL}/threads/${threadId}/down-vote`, {
+  async function toggleDownVoteThread ({ id }) {
+    const response = await _fetchWithAuth(`${BASE_URL}/threads/${id}/down-vote`, {
       method: 'POST'
     })
 
@@ -213,8 +213,8 @@ const api = (() => {
     return vote
   }
 
-  async function toggleNeutralizeVoteThread ({ threadId }) {
-    const response = await _fetchWithAuth(`${BASE_URL}/threads/${threadId}/neutral-vote`, {
+  async function toggleNeutralizeVoteThread ({ id }) {
+    const response = await _fetchWithAuth(`${BASE_URL}/threads/${id}/neutral-vote`, {
       method: 'POST'
     })
 

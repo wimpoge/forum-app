@@ -22,15 +22,15 @@ function DetailPage () {
     return null
   }
 
-  const onVoteUpThreadClick = (id) => {
-    dispatch(asyncToggleUpVoteThreadDetail(id))
+  const onVoteUpThreadClick = () => {
+    dispatch(asyncToggleUpVoteThreadDetail())
   }
-  const onVoteDownThreadClick = (id) => {
-    dispatch(asyncToggleDownVoteThreadDetail(id))
+  const onVoteDownThreadClick = () => {
+    dispatch(asyncToggleDownVoteThreadDetail())
   }
 
-  const onNeutralizeVoteThreadClick = (id) => {
-    dispatch(asyncNeutralizeVoteThreadDetail(id))
+  const onNeutralizeVoteThreadClick = () => {
+    dispatch(asyncNeutralizeVoteThreadDetail())
   }
 
   return (

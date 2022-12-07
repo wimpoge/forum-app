@@ -4,7 +4,6 @@ import CommentThread from '../../comments/CommentThread/CommentThread'
 import { ItemBody, ItemContainer, ItemCreatedAt, ItemName, ItemProfile, ItemProfileSub, ItemTitleDetail } from '../ThreadItem/ThreadItem.styled'
 import parse from 'html-react-parser'
 import { postedAt } from '../../../utils'
-import PropTypes from 'prop-types'
 /* eslint-disable react/react-in-jsx-scope */
 function ThreadDetail ({
   createdAt,
@@ -36,60 +35,49 @@ function ThreadDetail ({
     onNeutralizeVote(id)
   }
   return (
-        <ItemContainer>
-            <ItemTitleDetail>{title}</ItemTitleDetail>
-            <ItemBody>{parse(body)}</ItemBody>
-            <ItemProfile>
-                <img src={owner.avatar} />
-                <ItemProfileSub>
-                    <ItemName>{owner.name}</ItemName>
-                    <span>#{category}</span>
-                    <div>
-                        <div>
+    <ItemContainer>
+      <ItemTitleDetail>{title}</ItemTitleDetail>
+      <ItemBody>{parse(body)}</ItemBody>
+      <ItemProfile>
+        <img src={owner.avatar} />
+        <ItemProfileSub>
+          <ItemName>{owner.name}</ItemName>
+          <span>#{category}</span>
+          <div>
+            <div>
+              {isThreadVoteUp
+                ? (
+                  <button onClick={onNeutralizeVoteThread}>
+                    <BiLike style={{ color: 'green' }} />
+                  </button>
+                  )
+                : (
+                  <button onClick={onVoteUpThread}>
+                    <BiLike />
+                  </button>
+                  )}
+              {upVotesBy.length}
 
-                            {isThreadVoteUp
-                              ? (
-                                <button onClick={onVoteUpThread}>
-                                        <BiLike style={{ color: 'green' }} />
-                                    </button>
-
-                                )
-                              : (
-                                <button onClick={onNeutralizeVoteThread}>
-                                <BiLike />
-                            </button>
-                                )}
-                                 {upVotesBy.length}
-                            <div>
-                            </div>
-
-                            {isThreadVoteDown
-                              ? (
-                                <button onClick={onVoteDownThread}>
-                                <BiDislike style={{ color: 'red' }} />
-                            </button>
-                                )
-                              : (
-                                <button onClick={onNeutralizeVoteThread}>
-                                <BiDislike />
-                            </button>
-
-                                )}
-                                {downVotesBy.length}
-                        </div>
-
-                    </div>
-                </ItemProfileSub>
-            </ItemProfile>
-            <ItemCreatedAt>{postedAt(createdAt)}</ItemCreatedAt>
-            <CommentThread id={id} />
-        </ItemContainer>
+              {isThreadVoteDown
+                ? (
+                  <button onClick={onNeutralizeVoteThread}>
+                    <BiDislike style={{ color: 'red' }} />
+                  </button>
+                  )
+                : (
+                  <button onClick={onVoteDownThread}>
+                    <BiDislike />
+                  </button>
+                  )}
+              {downVotesBy.length}
+            </div>
+          </div>
+        </ItemProfileSub>
+      </ItemProfile>
+      <ItemCreatedAt>{postedAt(createdAt)}</ItemCreatedAt>
+      <CommentThread id={id} />
+    </ItemContainer>
   )
-}
-
-ThreadDetail.propTypes = {
-  upVotesBy: PropTypes.arrayOf(PropTypes.string).isRequired,
-  downVotesBy: PropTypes.arrayOf(PropTypes.string).isRequired
 }
 
 export default ThreadDetail
