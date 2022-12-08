@@ -4,43 +4,48 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import Comments from '../../components/comments/Comments'
 import { ItemContainer } from '../../components/ThreadsList/ThreadItem/ThreadItem.styled'
-import { asyncNeutralizeVoteThreadDetail, asyncReceiveThreadDetail, asyncToggleDownVoteThreadDetail, asyncToggleUpVoteThreadDetail } from '../../store/threadDetail/action'
+import { asyncNeutralizeVoteThreadDetail, asyncReceiveThreadDetail, asyncToggleUpVoteThreadDetail } from '../../store/threadDetail/action'
 /* eslint-disable react/react-in-jsx-scope */
 
 import ThreadDetail from '../../components/ThreadsList/ThreadDetail/ThreadDetail'
 
 function DetailPage () {
   const { id } = useParams()
-  const { threadDetail = null, authUser } = useSelector((states) => states)
   const dispatch = useDispatch()
+  const { threadDetail = null, authUser } = useSelector((states) => states)
+  const isThreadVoteUp = threadDetail?.upVotesBy.includes(authUser?.id)
+  const isThreadVoteDown = threadDetail?.downVotesBy.includes(authUser?.id)
 
   useEffect(() => {
     dispatch(asyncReceiveThreadDetail(id))
   }, [id, dispatch])
 
+  const onThreadVoteUp = () => {
+    if (isThreadVoteUp) {
+      dispatch(asyncNeutralizeVoteThreadDetail({ threadId: id, isThreadVoteUp }))
+    }
+    dispatch(asyncToggleUpVoteThreadDetail(isThreadVoteDown))
+  }
+
+  const onThreadVoteDown = () => {
+    if (isThreadVoteDown) {
+      dispatch(asyncNeutralizeVoteThreadDetail({ threadId: id }))
+    }
+    dispatch(asyncToggleUpVoteThreadDetail(isThreadVoteUp))
+  }
+
   if (!threadDetail) {
     return null
-  }
-
-  const onVoteUpThreadClick = (id) => {
-    dispatch(asyncToggleUpVoteThreadDetail(id))
-  }
-  const onVoteDownThreadClick = (id) => {
-    dispatch(asyncToggleDownVoteThreadDetail(id))
-  }
-
-  const onNeutralizeVoteThreadClick = (id) => {
-    dispatch(asyncNeutralizeVoteThreadDetail(id))
   }
 
   return (
     <>
     <ThreadDetail
     {...threadDetail}
-    authUser={authUser.id}
-    onVoteUp={onVoteUpThreadClick}
-    onVoteDown={onVoteDownThreadClick}
-    onNeutralizeVote={onNeutralizeVoteThreadClick}
+    onVoteUp={onThreadVoteUp}
+    onVoteDown={onThreadVoteDown}
+    isThreadVoteUp={isThreadVoteUp}
+    isThreadVoteDown={isThreadVoteDown}
     />
 
       <ItemContainer>

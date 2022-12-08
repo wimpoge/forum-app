@@ -37,8 +37,8 @@ function CreateThreadInput () {
         <>
       <ItemContainer className="talk-input">
       <input type="text" placeholder="Title" value={title} onChange={handleTextChange} />
-      <input type="text" placeholder="category" value={category} onChange={handleCategoryChange} />
       <input type="text" placeholder="Body" value={body} onChange={handleBodyChange} />
+      <input type="text" placeholder="category" value={category} onChange={handleCategoryChange} />
       <p className="talk-input__char-left">
         <strong>{body.length}</strong>
         /320

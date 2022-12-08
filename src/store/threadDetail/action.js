@@ -34,29 +34,32 @@ function addThreadCommentActionCreator (threadComment) {
   }
 }
 
-function toggleUpVoteThreadDetailActionCreator (userId) {
+function toggleUpVoteThreadDetailActionCreator ({ userId, threadId }) {
   return {
     type: ActionType.TOGGLE_UP_VOTE_THREAD_DETAIL,
     payload: {
-      userId
+      userId,
+      threadId
     }
   }
 }
 
-function toggleDownVoteThreadDetailActionCreator (userId) {
+function toggleDownVoteThreadDetailActionCreator ({ userId, threadId }) {
   return {
     type: ActionType.TOGGLE_DOWN_VOTE_THREAD_DETAIL,
     payload: {
-      userId
+      userId,
+      threadId
     }
   }
 }
 
-function toggleNeutralizeVoteThreadDetailActionCreator (userId) {
+function toggleNeutralizeVoteThreadDetailActionCreator ({ userId, threadId }) {
   return {
     type: ActionType.TOGGLE_NEUTRALIZE_VOTE_THREAD_DETAIL,
     payload: {
-      userId
+      userId,
+      threadId
     }
   }
 }
@@ -73,15 +76,37 @@ function asyncReceiveThreadDetail (threadId) {
   }
 }
 
-function asyncToggleUpVoteThreadDetail () {
+// function asyncToggleUpVoteThreadDetail () {
+//   return async (dispatch, getState) => {
+//     const { authUser, threadDetail } = getState()
+//     dispatch(toggleUpVoteThreadDetailActionCreator(authUser.id))
+
+//     try {
+//       await api.toggleUpVoteThread(threadDetail.id)
+//     } catch (error) {
+//       alert(error.message)
+//     }
+//   }
+// }
+
+function asyncToggleUpVoteThreadDetail ({ threadId, isVotedDown }) {
   return async (dispatch, getState) => {
-    const { authUser, threadDetail } = getState()
-    dispatch(toggleUpVoteThreadDetailActionCreator(authUser.id))
+    const { authUser } = getState()
+
+    dispatch(toggleUpVoteThreadDetailActionCreator({ userId: authUser.id, threadId }))
 
     try {
-      await api.toggleUpVoteThread(threadDetail.id)
+      await api.toggleUpVoteThread(threadId)
     } catch (error) {
-      alert(error.message)
+      if (isVotedDown) {
+        dispatch(
+          toggleDownVoteThreadDetailActionCreator({ userId: authUser.id, threadId })
+        )
+      } else {
+        dispatch(
+          toggleNeutralizeVoteThreadDetailActionCreator({ userId: authUser.id, threadId })
+        )
+      }
     }
   }
 }
