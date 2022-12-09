@@ -54,7 +54,7 @@ function toggleNeutralizeVoteThreadActionCreator (threadId, userId) {
   }
 }
 
-function asyncAddThread ({ title, body, category }) {
+function asyncAddThread ({ title, body, category = '' }) {
   return async (dispatch) => {
     try {
       const thread = await api.createThread({ title, body, category })

@@ -36,26 +36,7 @@ function CreateThreadInput () {
   return (
     <>
       <ItemContainer className="talk-input">
-        <ContainerInput>
-          <Input type="text" placeholder="Title" value={title} onChange={handleTextChange} />
-          <p className="talk-input__char-left">
-            <strong>{title.length}</strong>
-            /30
-          </p>
-          <Input type="text" placeholder="category" value={category} onChange={handleCategoryChange} />
-          <p className="talk-input__char-left">
-            <strong>{category.length}</strong>
-            /30
-          </p>
-          <InputTextArea type="text" placeholder="Body" value={body} onChange={handleBodyChange} />
-          <p className="talk-input__char-left">
-            <strong>{body.length}</strong>
-            /320
-          </p>
-          <Button type="submit" onClick={onAddThread}>Create Thread</Button>
-        </ContainerInput>
-      </ItemContainer>
-    </>
+
   )
 }
 

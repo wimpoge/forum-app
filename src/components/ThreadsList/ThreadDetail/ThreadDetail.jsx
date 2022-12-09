@@ -4,6 +4,7 @@ import CommentThread from '../../comments/CommentThread/CommentThread'
 import { ItemBody, ItemContainer, ItemCreatedAt, ItemName, ItemProfile, ItemProfileSub, ItemTitleDetail } from '../ThreadItem/ThreadItem.styled'
 import parse from 'html-react-parser'
 import { postedAt } from '../../../utils'
+
 /* eslint-disable react/react-in-jsx-scope */
 function ThreadDetail ({
   createdAt,
@@ -12,28 +13,14 @@ function ThreadDetail ({
   body,
   owner,
   category,
-  authUser, onVoteUp, onVoteDown,
   upVotesBy,
   downVotesBy,
-  onNeutralizeVote
+  onVoteUp,
+  onVoteDown,
+  isThreadVoteUp,
+  isThreadVoteDown
+
 }) {
-  const isThreadVoteUp = upVotesBy.includes(authUser)
-  const isThreadVoteDown = downVotesBy.includes(authUser)
-
-  const onVoteUpThread = (e) => {
-    e.stopPropagation()
-    onVoteUp(id)
-  }
-
-  const onVoteDownThread = (e) => {
-    e.stopPropagation()
-    onVoteDown(id)
-  }
-
-  const onNeutralizeVoteThread = (e) => {
-    e.stopPropagation()
-    onNeutralizeVote(id)
-  }
   return (
     <ItemContainer>
       <ItemTitleDetail>{title}</ItemTitleDetail>
@@ -58,25 +45,7 @@ function ThreadDetail ({
                   )}
               {upVotesBy.length}
 
-              {isThreadVoteDown
-                ? (
-                  <button onClick={onNeutralizeVoteThread}>
-                    <BiDislike style={{ color: 'red' }} />
-                  </button>
-                  )
-                : (
-                  <button onClick={onVoteDownThread}>
-                    <BiDislike />
-                  </button>
-                  )}
-              {downVotesBy.length}
-            </div>
-          </div>
-        </ItemProfileSub>
-      </ItemProfile>
-      <ItemCreatedAt>{postedAt(createdAt)}</ItemCreatedAt>
-      <CommentThread id={id} />
-    </ItemContainer>
+
   )
 }
 

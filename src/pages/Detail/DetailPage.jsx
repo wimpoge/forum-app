@@ -4,43 +4,40 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import Comments from '../../components/comments/Comments'
 import { ItemContainer } from '../../components/ThreadsList/ThreadItem/ThreadItem.styled'
-import { asyncNeutralizeVoteThreadDetail, asyncReceiveThreadDetail, asyncToggleDownVoteThreadDetail, asyncToggleUpVoteThreadDetail } from '../../store/threadDetail/action'
+import { asyncNeutralizeVoteThreadDetail, asyncReceiveThreadDetail, asyncToggleUpVoteThreadDetail } from '../../store/threadDetail/action'
 /* eslint-disable react/react-in-jsx-scope */
 
 import ThreadDetail from '../../components/ThreadsList/ThreadDetail/ThreadDetail'
 
 function DetailPage () {
   const { id } = useParams()
-  const { threadDetail = null, authUser } = useSelector((states) => states)
   const dispatch = useDispatch()
+  const { threadDetail = null, authUser } = useSelector((states) => states)
+  const isThreadVoteUp = threadDetail?.upVotesBy.includes(authUser?.id)
+  const isThreadVoteDown = threadDetail?.downVotesBy.includes(authUser?.id)
 
   useEffect(() => {
     dispatch(asyncReceiveThreadDetail(id))
   }, [id, dispatch])
 
-  if (!threadDetail) {
-    return null
+  const onThreadVoteUp = () => {
+    if (isThreadVoteUp) {
+      dispatch(asyncNeutralizeVoteThreadDetail({ threadId: id, isThreadVoteUp }))
+    }
+    dispatch(asyncToggleUpVoteThreadDetail(isThreadVoteDown))
   }
 
-  const onVoteUpThreadClick = () => {
-    dispatch(asyncToggleUpVoteThreadDetail())
-  }
-  const onVoteDownThreadClick = () => {
-    dispatch(asyncToggleDownVoteThreadDetail())
-  }
 
-  const onNeutralizeVoteThreadClick = () => {
-    dispatch(asyncNeutralizeVoteThreadDetail())
   }
 
   return (
     <>
     <ThreadDetail
     {...threadDetail}
-    authUser={authUser.id}
-    onVoteUp={onVoteUpThreadClick}
-    onVoteDown={onVoteDownThreadClick}
-    onNeutralizeVote={onNeutralizeVoteThreadClick}
+    onVoteUp={onThreadVoteUp}
+    onVoteDown={onThreadVoteDown}
+    isThreadVoteUp={isThreadVoteUp}
+    isThreadVoteDown={isThreadVoteDown}
     />
 
       <ItemContainer>

@@ -120,9 +120,9 @@ const api = (() => {
       throw new Error(message)
     }
 
-    const { data: { talk } } = responseJson
+    const { data: { thread } } = responseJson
 
-    return talk
+    return thread
   }
 
   async function getAllThreads () {
@@ -180,8 +180,6 @@ const api = (() => {
     return comment
   }
 
-  async function toggleUpVoteThread ({ id }) {
-    const response = await _fetchWithAuth(`${BASE_URL}/threads/${id}/up-vote`, {
       method: 'POST'
     })
     const responseJson = await response.json()
