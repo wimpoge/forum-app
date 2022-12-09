@@ -27,15 +27,7 @@ function DetailPage () {
     dispatch(asyncToggleUpVoteThreadDetail(isThreadVoteDown))
   }
 
-  const onThreadVoteDown = () => {
-    if (isThreadVoteDown) {
-      dispatch(asyncNeutralizeVoteThreadDetail({ threadId: id }))
-    }
-    dispatch(asyncToggleUpVoteThreadDetail(isThreadVoteUp))
-  }
 
-  if (!threadDetail) {
-    return null
   }
 
   return (

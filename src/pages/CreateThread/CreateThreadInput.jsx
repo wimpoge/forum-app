@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { asyncAddThread } from '../../store/threads/action'
-import { ItemContainer } from '../../components/ThreadsList/ThreadItem/ThreadItem.styled'
 import { useNavigate } from 'react-router-dom'
+import { Button, ContainerInput, Input, InputTextArea, ItemContainer } from './CreateThreadInput.styles'
 /* eslint-disable react/react-in-jsx-scope */
 
 function CreateThreadInput () {
@@ -34,18 +34,9 @@ function CreateThreadInput () {
     }
   }
   return (
-        <>
+    <>
       <ItemContainer className="talk-input">
-      <input type="text" placeholder="Title" value={title} onChange={handleTextChange} />
-      <input type="text" placeholder="Body" value={body} onChange={handleBodyChange} />
-      <input type="text" placeholder="category" value={category} onChange={handleCategoryChange} />
-      <p className="talk-input__char-left">
-        <strong>{body.length}</strong>
-        /320
-      </p>
-      <button type="submit" onClick={onAddThread}>Create Thread</button>
-    </ItemContainer>
-        </>
+
   )
 }
 
