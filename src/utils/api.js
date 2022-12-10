@@ -195,7 +195,7 @@ const api = (() => {
     return vote
   }
 
-  async function toggleDownVoteThread ({ threadId }) {
+  async function toggleDownVoteThread (threadId) {
     const response = await _fetchWithAuth(`${BASE_URL}/threads/${threadId}/down-vote`, {
       method: 'POST'
     })
@@ -212,7 +212,7 @@ const api = (() => {
     return vote
   }
 
-  async function toggleNeutralizeVoteThread ({ threadId }) {
+  async function toggleNeutralizeVoteThread (threadId) {
     const response = await _fetchWithAuth(`${BASE_URL}/threads/${threadId}/neutral-vote`, {
       method: 'POST'
     })

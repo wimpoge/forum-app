@@ -15,8 +15,8 @@ function threadDetailReducer (threadDetail = null, action = {}) {
       return {
         ...threadDetail,
         upVotesBy: threadDetail.upVotesBy.includes(action.payload.userId)
-          ? threadDetail.upVotesBy.filter((id) => id !== action.payload.userId)
-          : threadDetail.upVotesBy.concat([action.payload.userId]),
+          ? threadDetail.upVotesBy
+          : [...threadDetail.upVotesBy, action.payload.userId],
         downVotesBy: threadDetail.downVotesBy.includes(action.payload.userId)
           ? threadDetail.downVotesBy.filter((id) => id !== action.payload.userId)
           : threadDetail.downVotesBy
@@ -24,22 +24,18 @@ function threadDetailReducer (threadDetail = null, action = {}) {
     case ActionType.TOGGLE_DOWN_VOTE_THREAD_DETAIL:
       return {
         ...threadDetail,
-        downVotesBy: threadDetail.downVotesBy.includes(action.payload.userId)
-          ? threadDetail.downVotesBy.filter((id) => id !== action.payload.userId)
-          : threadDetail.downVotesBy.concat([action.payload.userId]),
         upVotesBy: threadDetail.upVotesBy.includes(action.payload.userId)
           ? threadDetail.upVotesBy.filter((id) => id !== action.payload.userId)
-          : threadDetail.upVotesBy
+          : threadDetail.upVotesBy,
+        downVotesBy: threadDetail.downVotesBy.includes(action.payload.userId)
+          ? threadDetail.downVotesBy
+          : [...threadDetail.downVotesBy, action.payload.userId]
       }
     case ActionType.TOGGLE_NEUTRALIZE_VOTE_THREAD_DETAIL:
       return {
         ...threadDetail,
-        downVotesBy: threadDetail.downVotesBy.includes(action.payload.userId)
-          ? threadDetail.downVotesBy.filter((id) => id !== action.payload.userId)
-          : threadDetail.downVotesBy,
-        upVotesBy: threadDetail.upVotesBy.includes(action.payload.userId)
-          ? threadDetail.upVotesBy.filter((id) => id !== action.payload.userId)
-          : threadDetail.upVotesBy
+        upVotesBy: threadDetail.upVotesBy.filter((id) => id !== action.payload.userId),
+        downVotesBy: threadDetail.downVotesBy.filter((id) => id !== action.payload.userId)
       }
 
     default:

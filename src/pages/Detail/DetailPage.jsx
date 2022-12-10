@@ -22,16 +22,16 @@ function DetailPage () {
 
   const onThreadVoteUp = () => {
     if (isThreadVoteUp) {
-      dispatch(asyncNeutralizeVoteThreadDetail())
+      dispatch(asyncNeutralizeVoteThreadDetail({ threadId: id, isThreadVoteUp }))
     }
-    dispatch(asyncToggleUpVoteThreadDetail())
+    dispatch(asyncToggleUpVoteThreadDetail(isThreadVoteDown))
   }
 
   const onThreadVoteDown = () => {
     if (isThreadVoteDown) {
-      dispatch(asyncNeutralizeVoteThreadDetail())
+      dispatch(asyncNeutralizeVoteThreadDetail({ threadId: id }))
     }
-    dispatch(asyncToggleDownVoteThreadDetail())
+    dispatch(asyncToggleDownVoteThreadDetail(isThreadVoteUp))
   }
 
   if (!threadDetail) {

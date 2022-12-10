@@ -22,54 +22,33 @@ function ThreadDetail ({
 
 }) {
   return (
-        <ItemContainer>
-            <ItemTitleDetail>{title}</ItemTitleDetail>
-            <ItemBody>{parse(body)}</ItemBody>
-            <ItemProfile>
-                <img src={owner.avatar} />
-                <ItemProfileSub>
-                    <ItemName>{owner.name}</ItemName>
-                    <span>#{category}</span>
-                    <div>
-                        <div>
+    <ItemContainer>
+      <ItemTitleDetail>{title}</ItemTitleDetail>
+      <ItemBody>{parse(body)}</ItemBody>
+      <ItemProfile>
+        <img src={owner.avatar} />
+        <ItemProfileSub>
+          <ItemName>{owner.name}</ItemName>
+          <span>#{category}</span>
+          <div>
+            <div>
+              <button onClick={onVoteUp}>
+                <BiLike style={{ color: isThreadVoteUp ? 'green' : 'none' }} />
+              </button>
+              {upVotesBy.length}
 
-                            {isThreadVoteUp
-                              ? (
-                                <button onClick={onVoteUp}>
-                                        <BiLike style={{ color: 'green' }} />
-                                    </button>
+              <button onClick={onVoteDown}>
+                <BiDislike style={{ color: isThreadVoteDown ? 'red' : 'none' }} />
+              </button>
+              {downVotesBy.length}
+            </div>
 
-                                )
-                              : (
-                                <button onClick={onVoteUp}>
-                                <BiLike />
-                            </button>
-                                )}
-                                 {upVotesBy.length}
-                            <div>
-                            </div>
-
-                            {isThreadVoteDown
-                              ? (
-                                <button onClick={onVoteDown}>
-                                <BiDislike style={{ color: 'red' }} />
-                            </button>
-                                )
-                              : (
-                                <button onClick={onVoteDown}>
-                                <BiDislike />
-                            </button>
-
-                                )}
-                                {downVotesBy.length}
-                        </div>
-
-                    </div>
-                </ItemProfileSub>
-            </ItemProfile>
-            <ItemCreatedAt>{postedAt(createdAt)}</ItemCreatedAt>
-            <CommentThread id={id} />
-        </ItemContainer>
+          </div>
+        </ItemProfileSub>
+      </ItemProfile>
+      <ItemCreatedAt>{postedAt(createdAt)}</ItemCreatedAt>
+      <CommentThread id={id} />
+    </ItemContainer>
   )
 }
 
