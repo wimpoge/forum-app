@@ -76,40 +76,40 @@ function asyncReceiveThreadDetail (threadId) {
   }
 }
 
-// function asyncToggleUpVoteThreadDetail () {
-//   return async (dispatch, getState) => {
-//     const { authUser, threadDetail } = getState()
-//     dispatch(toggleUpVoteThreadDetailActionCreator(authUser.id))
-
-//     try {
-//       await api.toggleUpVoteThread(threadDetail.id)
-//     } catch (error) {
-//       alert(error.message)
-//     }
-//   }
-// }
-
-function asyncToggleUpVoteThreadDetail ({ threadId, isVotedDown }) {
+function asyncToggleUpVoteThreadDetail () {
   return async (dispatch, getState) => {
-    const { authUser } = getState()
-
-    dispatch(toggleUpVoteThreadDetailActionCreator({ userId: authUser.id, threadId }))
+    const { authUser, threadDetail } = getState()
+    dispatch(toggleUpVoteThreadDetailActionCreator(authUser.id))
 
     try {
-      await api.toggleUpVoteThread(threadId)
+      await api.toggleUpVoteThread(threadDetail.id)
     } catch (error) {
-      if (isVotedDown) {
-        dispatch(
-          toggleDownVoteThreadDetailActionCreator({ userId: authUser.id, threadId })
-        )
-      } else {
-        dispatch(
-          toggleNeutralizeVoteThreadDetailActionCreator({ userId: authUser.id, threadId })
-        )
-      }
+      alert(error.message)
     }
   }
 }
+
+// function asyncToggleUpVoteThreadDetail ({ threadId, downVotesBy }) {
+//   return async (dispatch, getState) => {
+//     const { authUser } = getState()
+
+//     dispatch(toggleUpVoteThreadDetailActionCreator({ userId: authUser.id, threadId }))
+
+//     try {
+//       await api.toggleUpVoteThread(threadId)
+//     } catch (error) {
+//       if (downVotesBy) {
+//         dispatch(
+//           toggleDownVoteThreadDetailActionCreator({ userId: authUser.id, threadId })
+//         )
+//       } else {
+//         dispatch(
+//           toggleNeutralizeVoteThreadDetailActionCreator({ userId: authUser.id, threadId })
+//         )
+//       }
+//     }
+//   }
+// }
 
 function asyncToggleDownVoteThreadDetail () {
   return async (dispatch, getState) => {
