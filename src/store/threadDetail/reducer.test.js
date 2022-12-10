@@ -8,7 +8,7 @@
  *
  */
 
-import threadDetailReducer from './reducer'
+import threadDetailReducer from './reducer.js'
 
 describe('threadDetailReducer', () => {
   it('should return initial state when given by UNKNOWN action', () => {
