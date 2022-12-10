@@ -29,7 +29,7 @@ function DetailPage () {
 
   const onThreadVoteDown = () => {
     if (isThreadVoteDown) {
-      dispatch(asyncNeutralizeVoteThreadDetail({ threadId: id }))
+      dispatch(asyncNeutralizeVoteThreadDetail())
     }
     dispatch(asyncToggleDownVoteThreadDetail())
   }
