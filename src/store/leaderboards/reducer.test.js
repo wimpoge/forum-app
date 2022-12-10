@@ -8,7 +8,7 @@
  *
  */
 
-import leaderboardsReducer from './reducer'
+import leaderboardsReducer from './reducer.js'
 
 describe('leaderboardsReducer', () => {
   it('should return the initial state when given an unknown action', () => {

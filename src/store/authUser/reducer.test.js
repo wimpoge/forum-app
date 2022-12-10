@@ -8,7 +8,7 @@
  *  - should clear state when given by UNSET_AUTH_USER action
  */
 
-import authUserReducer from './reducer'
+import authUserReducer from './reducer.js'
 
 describe('authUserReducer', () => {
   it('should return initialState when given by UNKNOWN action', () => {

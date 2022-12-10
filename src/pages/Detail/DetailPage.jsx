@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import Comments from '../../components/comments/Comments'
 import { ItemContainer } from '../../components/ThreadsList/ThreadItem/ThreadItem.styled'
-import { asyncNeutralizeVoteThreadDetail, asyncReceiveThreadDetail, asyncToggleUpVoteThreadDetail } from '../../store/threadDetail/action'
+import { asyncNeutralizeVoteThreadDetail, asyncReceiveThreadDetail, asyncToggleDownVoteThreadDetail, asyncToggleUpVoteThreadDetail } from '../../store/threadDetail/action'
 /* eslint-disable react/react-in-jsx-scope */
 
 import ThreadDetail from '../../components/ThreadsList/ThreadDetail/ThreadDetail'
@@ -31,7 +31,7 @@ function DetailPage () {
     if (isThreadVoteDown) {
       dispatch(asyncNeutralizeVoteThreadDetail({ threadId: id }))
     }
-    dispatch(asyncToggleUpVoteThreadDetail(isThreadVoteUp))
+    dispatch(asyncToggleDownVoteThreadDetail(isThreadVoteUp))
   }
 
   if (!threadDetail) {

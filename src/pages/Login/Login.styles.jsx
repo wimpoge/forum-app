@@ -6,7 +6,7 @@ export const LoginContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     text-align: center;
-    margin: 25% auto;
+    margin: 20% auto;
     
 
 `
