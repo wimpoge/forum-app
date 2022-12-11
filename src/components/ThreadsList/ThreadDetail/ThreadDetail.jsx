@@ -15,8 +15,8 @@ function ThreadDetail ({
   category,
   upVotesBy,
   downVotesBy,
-  onVoteUp,
-  onVoteDown,
+  onThreadVoteUp,
+  onThreadVoteDown,
   isThreadVoteUp,
   isThreadVoteDown
 
@@ -32,17 +32,16 @@ function ThreadDetail ({
           <span>#{category}</span>
           <div>
             <div>
-              <button onClick={onVoteUp}>
+              <button onClick={onThreadVoteUp}>
                 <BiLike style={{ color: isThreadVoteUp ? 'green' : 'none' }} />
-              </button>
               {upVotesBy.length}
-
-              <button onClick={onVoteDown}>
-                <BiDislike style={{ color: isThreadVoteDown ? 'red' : 'none' }} />
               </button>
-              {downVotesBy.length}
-            </div>
 
+              <button onClick={onThreadVoteDown}>
+                <BiDislike style={{ color: isThreadVoteDown ? 'red' : 'none' }} />
+              {downVotesBy.length}
+              </button>
+            </div>
           </div>
         </ItemProfileSub>
       </ItemProfile>

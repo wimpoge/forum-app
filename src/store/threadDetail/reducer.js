@@ -6,11 +6,11 @@ function threadDetailReducer (threadDetail = null, action = {}) {
       return action.payload.threadDetail
     case ActionType.CLEAR_THREAD_DETAIL:
       return null
-    case ActionType.RECEIVE_THREAD_COMMENT:
-      return {
-        ...threadDetail,
-        comment: [action.payload.threadDetail]
-      }
+    // case ActionType.RECEIVE_THREAD_COMMENT:
+    //   return {
+    //     ...threadDetail,
+    //     comment: [action.payload.threadDetail]
+    //   }
     case ActionType.TOGGLE_UP_VOTE_THREAD_DETAIL:
       return {
         ...threadDetail,

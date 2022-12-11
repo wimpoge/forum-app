@@ -1,4 +1,5 @@
 import api from '../../utils/api'
+import { toggleDownVoteThreadActionCreator, toggleNeutralizeVoteThreadActionCreator, toggleUpVoteThreadActionCreator } from '../threads/action'
 
 const ActionType = {
   RECEIVE_THREAD_DETAIL: 'RECEIVE_THREAD_DETAIL',
@@ -111,7 +112,7 @@ function asyncNeutralizeVoteThreadDetail ({ threadId, isThreadVoteUp = false }) 
   return async (dispatch, getState) => {
     const { authUser, threadDetail } = getState()
 
-    dispatch(toggleNeutralizeVoteThreadDetailActionCreator({ threadId, userId: authUser.id }))
+    dispatch(toggleNeutralizeVoteThreadActionCreator({ threadId, userId: authUser.id }))
 
     if (threadDetail !== null) {
       dispatch(toggleNeutralizeVoteThreadDetailActionCreator(authUser.id))
@@ -121,9 +122,9 @@ function asyncNeutralizeVoteThreadDetail ({ threadId, isThreadVoteUp = false }) 
       await api.toggleNeutralizeVoteThread(threadId)
     } catch (error) {
       if (isThreadVoteUp) {
-        dispatch(toggleUpVoteThreadDetailActionCreator({ threadId, userId: authUser.id }))
+        dispatch(toggleUpVoteThreadActionCreator({ threadId, userId: authUser.id }))
       } else {
-        dispatch(toggleDownVoteThreadDetailActionCreator({ threadId, userId: authUser.id }))
+        dispatch(toggleDownVoteThreadActionCreator({ threadId, userId: authUser.id }))
       }
 
       if (threadDetail !== null && isThreadVoteUp) {

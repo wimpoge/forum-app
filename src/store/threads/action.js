@@ -91,6 +91,8 @@ export {
   ActionType,
   receiveThreadsActionCreator,
   addThreadActionCreator,
+  toggleNeutralizeVoteThreadActionCreator,
+  toggleDownVoteThreadActionCreator,
   toggleUpVoteThreadActionCreator,
   asyncToggleVoteUpThread,
   asyncAddThread

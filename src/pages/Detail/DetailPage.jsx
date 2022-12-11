@@ -42,8 +42,8 @@ function DetailPage () {
     <>
     <ThreadDetail
     {...threadDetail}
-    onVoteUp={onThreadVoteUp}
-    onVoteDown={onThreadVoteDown}
+    onThreadVoteUp={onThreadVoteUp}
+    onThreadVoteDown={onThreadVoteDown}
     isThreadVoteUp={isThreadVoteUp}
     isThreadVoteDown={isThreadVoteDown}
     />
