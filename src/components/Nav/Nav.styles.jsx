@@ -7,21 +7,21 @@ export const NavContainer = styled.div`
     background-color: grey;
 
     h1 {
-        color: #fff;
-  font-family: monospace;
-  overflow: hidden; /* Ensures the content is not revealed until the animation */
-  border-right: .15em solid orange; /* The typwriter cursor */
-  white-space: nowrap; /* Keeps the content on a single line */
-  margin-left: 10px;
-  letter-spacing: .15em; /* Adjust as needed */
-  animation: 
-    typing 1.5s steps(30, end),
-    blink-caret .5s step-end infinite;
+      color: #fff;
+      font-family: monospace;
+      overflow: hidden; /* Ensures the content is not revealed until the animation */
+      border-right: .15em solid orange; /* The typwriter cursor */
+      white-space: nowrap; /* Keeps the content on a single line */
+      margin-left: 10px;
+      letter-spacing: .15em; /* Adjust as needed */
+      animation: 
+      typing 1.5s steps(30, end),
+      blink-caret .5s step-end infinite;
 }
 
 @keyframes typing {
   from { width: 0 }
-  to { width: 22% }
+  to { width: 12% }
 }
 
 /* The typewriter cursor effect */
